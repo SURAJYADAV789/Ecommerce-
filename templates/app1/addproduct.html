@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+products
+{% endblock title %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+<!--  products -->
+
+<div class="container-fluid text-white vh-100 text-center my-3">
+    <div class="container-fluid bg-white text-center text-dark w-25">
+        <form action="" method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{form|crispy}}
+
+            <input type="submit" class="btn btn-primary my-3" value="Add">
+        </form>
+        
+    </div>
+</div>
+
+{% endblock body %}

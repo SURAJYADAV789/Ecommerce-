@@ -1,0 +1,34 @@
+.centered
+{
+    
+    position: absolute;
+    top: 20%;
+    left: 16px;
+}
+
+/* Card  */
+
+.card
+{
+    border-radius: 20px !important;
+}
+
+.card-img-top
+{
+    height: 200px;
+}
+
+.card-title
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-text
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+

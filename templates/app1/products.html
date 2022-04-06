@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+products
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+{% block body %}
+{% load static %}
+<!--  products -->
+
+<div class="container-fluid text-white text-center my-3">
+    <h2 class="title py-5">Featured Products</h2>
+    <div class="row justify-content-evenly">
+
+        {% for product in product_list %}
+        <div class="card m-2 mb-3" style="width: 18rem;"> 
+            <img src="/app1{{product.p_image.url}}"  class="card-img-top" alt="...">
+            <div class="card-body text-dark">
+              <a href="/app1/product-detail/{{product.p_id}}"><h5 class="card-title">{{product.p_name}}</h5></a>
+              <p class="card-text">{{product.p_desc}}</p>
+              <small><p class="card-text text-danger mb-2"> <i class="fas fa-rupee-sign text-dark"></i> {{product.p_price}}</p></small>
+              <a href="/app1/product-update/{{product.p_id}}" class="btn btn-primary">Update</a>
+              <a href="/app1/product-delete/{{product.p_id}}" class="btn btn-danger">Delete</a>
+
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>   
+</div>
+
+<div class="modal fade" id="productdetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Product Information</h5>
+        </div>
+        <div class="modal-body">
+          <table class="table table-borderless">
+            <tr>
+              <th>Product Image</th>
+              <td><img src="/app1{{product.p_image.url}}"  class="card-img-top" alt="..."></td>
+            <tr>
+            <tr>
+              <th>Product Id</th>
+              <td> {{object.p_id}}</td>
+            <tr>
+              <th>Product Name</th>
+              <td>{{product.p_name}}</td>
+            <tr>
+              <th>Product Price</th>
+              <td> {{product.p_price}}</td>
+            <tr>
+              <th>Product Price</th>
+              <td> {{product.p_desc}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <a href="/app1/products" class="btn btn-secondary">Ok</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="productform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">{{action|upper}} Product </h5>
+        </div>
+        <div class="modal-body">
+          <table class="table table-borderless">
+               <form action="" method="POST" novalidate enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <table class="table table-borderless">
+                      {{form|crispy }}
+                      <tr>
+                          <td colspan="2" align="right">
+                              <input class="btn btn-success" type="submit" value="Save">
+                          </td>
+                      </tr>
+                  </table>
+              </form>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% if action == 'update' or action == 'add' %}
+<script>
+  $(function () {
+    $('#productform').modal('show');
+  })
+</script>
+{% endif %}
+
+
+
+{% if action == 'detail' %}
+<script>
+  $(function () {
+    $('#productdetails').modal('show');
+  })
+</script>
+{% endif %}
+{% endblock body %}
